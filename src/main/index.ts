@@ -1,22 +1,27 @@
-import { app, shell, BrowserWindow, ipcMain } from 'electron'
+import { electronApp, is, optimizer } from '@electron-toolkit/utils'
+import { app, BrowserWindow, ipcMain, shell } from 'electron'
 import { join } from 'path'
-import { electronApp, optimizer, is } from '@electron-toolkit/utils'
 import icon from '../../resources/icon.png?asset'
+
+import { twitchService } from '../services/twitchService'
 
 function createWindow(): void {
   // Create the browser window.
   const mainWindow = new BrowserWindow({
     width: 300,
     minWidth: 300,
-    height: 500,
-    minHeight: 500,
+    height: 450,
+    minHeight: 450,
+    transparent: true,
     show: false,
+    frame: false,
     autoHideMenuBar: true,
     ...(process.platform === 'linux' ? { icon } : {}),
     webPreferences: {
       preload: join(__dirname, '../preload/index.js'),
       sandbox: false
-    }
+    },
+    alwaysOnTop: true,
   })
 
   mainWindow.on('ready-to-show', () => {
@@ -37,6 +42,18 @@ function createWindow(): void {
   }
 }
 
+function startChatServices() {
+  twitchService.init()
+
+  twitchService.onMessage((data) => {
+    const win = BrowserWindow.getAllWindows()[0]
+    if (win) {
+      win.webContents.send('chat-message', data)
+    }
+  })
+}
+
+
 // This method will be called when Electron has finished
 // initialization and is ready to create browser windows.
 // Some APIs can only be used after this event occurs.
@@ -55,6 +72,8 @@ app.whenReady().then(() => {
   ipcMain.on('ping', () => console.log('pong'))
 
   createWindow()
+
+  startChatServices()
 
   app.on('activate', function () {
     // On macOS it's common to re-create a window in the app when the

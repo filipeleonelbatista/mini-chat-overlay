@@ -1,10 +1,10 @@
 {
-  "name": "electron-app",
+  "name": "mini-chat-overlay",
   "version": "1.0.0",
-  "description": "An Electron application with React and TypeScript",
+  "description": "Mini Chat Overlay for Twitch and Youtube chats React and TypeScript",
   "main": "./out/main/index.js",
-  "author": "example.com",
-  "homepage": "https://electron-vite.org",
+  "author": "filipeleonelbatista.dev.br",
+  "homepage": "https://filipeleonelbatista.dev.br",
   "scripts": {
     "format": "prettier --write .",
     "lint": "eslint . --ext .js,.jsx,.cjs,.mjs,.ts,.tsx,.cts,.mts --fix",
@@ -23,7 +23,12 @@
   "dependencies": {
     "@electron-toolkit/preload": "^3.0.1",
     "@electron-toolkit/utils": "^3.0.0",
-    "electron-updater": "^6.1.7"
+    "electron-updater": "^6.1.7",
+    "react-icons": "^5.2.1",
+    "socket.io": "^4.7.5",
+    "socket.io-client": "^4.7.5",
+    "tmi.js": "^1.8.5",
+    "tubechat": "^1.0.3"
   },
   "devDependencies": {
     "@electron-toolkit/eslint-config-prettier": "^2.0.0",
@@ -32,15 +37,20 @@
     "@types/node": "^20.14.8",
     "@types/react": "^18.3.3",
     "@types/react-dom": "^18.3.0",
+    "@types/tmi.js": "^1.8.6",
     "@vitejs/plugin-react": "^4.3.1",
+    "autoprefixer": "^10.4.19",
+    "daisyui": "^4.12.10",
     "electron": "^31.0.2",
     "electron-builder": "^24.13.3",
     "electron-vite": "^2.3.0",
     "eslint": "^8.57.0",
     "eslint-plugin-react": "^7.34.3",
+    "postcss": "^8.4.40",
     "prettier": "^3.3.2",
     "react": "^18.3.1",
     "react-dom": "^18.3.1",
+    "tailwindcss": "^3.4.7",
     "typescript": "^5.5.2",
     "vite": "^5.3.1"
   }
