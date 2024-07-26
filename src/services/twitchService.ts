@@ -47,7 +47,6 @@ class TwitchService extends EventEmitter {
           } as ChatUserstateExtended
         }
 
-        // Aqui você usa o EventEmitter para emitir eventos
         this.emit('message', messageEventData)
       } catch (error) {
         console.error('Error handling Twitch message:', error)

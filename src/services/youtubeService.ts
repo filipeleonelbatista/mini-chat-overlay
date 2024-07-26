@@ -71,8 +71,6 @@ class YouTubeService extends EventEmitter {
         } as ChatUserstateExtended
       };
       this.emit('message', messageEventData);
-
-      console.log('Message received from YouTube:', messageEventData);
     } catch (error) {
       console.error('Error handling YouTube message:', error);
     }
