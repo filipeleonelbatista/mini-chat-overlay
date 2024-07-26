@@ -1,5 +1,5 @@
 <p align="center">
-  <img src="./src/resources/icon.png" width="140px" />
+  <img src="./resources/icon.png" width="140px" />
 </p>
 
 <h1 align="center">Mini Chat Overlay</h1>
@@ -15,11 +15,6 @@
  <!-- License -->
   <a href="./LICENSE" target="_blank">
     <img alt="License: MIT" src="https://img.shields.io/badge/license%20-MIT-1C1E26?style=for-the-badge&labelColor=1C1E26&color=3b82f6">
-  </a>
-
- <!-- Twitter -->
-  <a href="https://filipeleonelbatista.dev.br/links" target="_blank">
-    <img alt="Meus Links: filipeleonelbatista" src="https://img.shields.io/twitter/follow/filipeleonelbatista.svg?style=for-the-badge&labelColor=1C1E26&color=3b82f6&logo=twitter" />
   </a>
 </h3>
 
