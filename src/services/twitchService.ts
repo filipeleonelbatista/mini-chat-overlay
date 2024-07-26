@@ -1,13 +1,28 @@
 import EventEmitter from 'events'
 import * as tmi from 'tmi.js'
-import { ChatUserstateExtended, MessageEventData } from '../actions/actions'
 import { config } from '../config/config'
+
+export interface ChatUserstateExtended {
+  istwitch: boolean
+  isyoutube: boolean
+  thumbnail: string
+  isMod: boolean
+  isSub: boolean
+  isOwner: boolean
+}
+
+export type MessageEventData = {
+  message: string
+  username: string
+  extra?: ChatUserstateExtended
+}
 
 class TwitchService extends EventEmitter {
   private client: tmi.Client
 
   constructor() {
     super()
+    console.log('Connecting to Twitch channel:', config.twitchChannelName);
     this.client = new tmi.Client({
       channels: [config.twitchChannelName]
     })

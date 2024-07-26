@@ -1,6 +1,6 @@
 import { useEffect, useRef, useState } from 'react';
 import { IoMdChatbubbles } from "react-icons/io";
-import { FaUser } from "react-icons/fa";
+import { FaPlay, FaTwitch, FaUser } from "react-icons/fa";
 
 export interface ChatUserstateExtended {
   istwitch: boolean
@@ -40,6 +40,7 @@ function App(): JSX.Element {
 
   useEffect(() => {
     const handleMessage = (_event: any, data: MessageEventData) => {
+      console.log("data", data)
       setMessages(prevMessages => [...prevMessages, data]);
     }
 
@@ -78,7 +79,7 @@ function App(): JSX.Element {
         )
       }
       <div
-        className="flex-1 flex flex-col overflow-auto p-2 pb-4 justify-end"
+        className="flex h-screen flex-col overflow-scroll p-2 pb-4 justify-end"
         ref={containerRef}
       >
 
@@ -97,28 +98,28 @@ function App(): JSX.Element {
                   }
                   {
                     item.extra.thumbnail === "user.png" && (
-                      <div className="w-10 h-10 flex items-center justify-center rounded-full bg-purple-500">
+                      <div data-isyoutube={item.extra.isyoutube} data-istwitch={item.extra.istwitch} className="w-10 h-10 flex items-center justify-center rounded-full bg-purple-400 data-[isyoutube=true]:bg-red-500 data-[istwitch=true]:bg-purple-400">
                         <FaUser className='w-4 h-4 text-white' />
                       </div>
                     )
                   }
                   {
                     item.extra?.isyoutube && (
-                      <div className='absolute bottom-0 right-0 w-4 h-4 rounded-full bg-red-600 flex items-center justify-center text-[10px] font-bold text-white'>
-                        YT
+                      <div className='absolute shadow-md bottom-0 right-0 w-4 h-4 rounded-full bg-red-600 flex items-center justify-center text-[10px] font-bold text-white'>
+                        <FaPlay className='w-1.5 h-1.5' />
                       </div>
                     )
                   }
                   {
                     item.extra?.istwitch && (
-                      <div className='absolute bottom-0 right-0 w-4 h-4 rounded-full bg-purple-600 flex items-center justify-center text-[10px] font-bold text-white'>
-                        T
+                      <div className='absolute shadow-md bottom-0 right-0 w-4 h-4 rounded-full bg-purple-600 flex items-center justify-center text-[10px] font-bold text-white'>
+                        <FaTwitch className='w-2 h-2' />
                       </div>
                     )
                   }
                 </div>
               </div>
-              <div data-isowner={item.extra?.isOwner} className="chat-bubble data-[isowner=true]:chat-bubble-primary  max-w-full text-sm no-drag">
+              <div data-isowner={item.extra?.isOwner} className="chat-bubble data-[isowner=true]:chat-bubble-primary w-full max-w-full text-sm no-drag">
                 {item.message}
               </div>
               <div className="chat-footer flex flex-row items-center gap-2">

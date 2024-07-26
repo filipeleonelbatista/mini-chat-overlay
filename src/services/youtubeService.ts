@@ -1,39 +1,86 @@
-import * as httpServer from 'node:http'
-import { Server } from 'socket.io'
-import { TubeChat } from 'tubechat'
-import { config } from '../config/config'
+import EventEmitter from 'events';
+import { TubeChat } from 'tubechat';
+import { config } from '../config/config';
 
-const tubeChat = new TubeChat()
-tubeChat.connect(config.twitchChannelName)
-
-const server = httpServer.createServer()
-
-const io = new Server(server, {
-  cors: {
-    origin: '*'
-  }
-})
-
-const onConnection = socket => {
-  tubeChat.on('message', ({ message, name }) => {
-    const messageText = message[0]?.text || ''
-
-    const messageEventData = {
-      message: messageText,
-      username: name,
-      extra: {
-        istwitch: false,
-        isyoutube: true,
-        isMod: false,
-        isSub: false,
-        isOwner: false,
-      }
-    }
-
-    socket.emit('chat', messageEventData)
-  })
+export interface ChatUserstateExtended {
+  istwitch: boolean;
+  isyoutube: boolean;
+  thumbnail: string;
+  isMod: boolean;
+  isSub: boolean;
+  isOwner: boolean;
 }
 
-io.on('connection', onConnection)
+export type MessageEventData = {
+  message: string;
+  username: string;
+  extra?: ChatUserstateExtended;
+}
 
-server.listen(3333)
+interface Thumbnail {
+  url: string;
+  alt: string;
+}
+
+interface Badges {
+  [key: string]: any;
+}
+
+interface TubeChatMessage {
+  channel: string;
+  id: string;
+  message: { text?: string }[];
+  name: string;
+  thumbnail: Thumbnail;
+  channelId: string;
+  isMembership: boolean;
+  isOwner: boolean;
+  isVerified: boolean;
+  isModerator: boolean;
+  isNewMember: boolean;
+  badges: Badges;
+  color: string;
+  timestamp: Date;
+}
+
+class YouTubeService extends EventEmitter {
+  private tubeChat: TubeChat;
+
+  constructor() {
+    super();
+    this.tubeChat = new TubeChat();
+    this.tubeChat.connect(config.youtubeChannelName);
+    console.log('Connecting to YouTube channel:', config.youtubeChannelName);
+    this.tubeChat.on('message', (data: TubeChatMessage) => this.handleMessage(data));
+  }
+
+  private handleMessage(params: TubeChatMessage) {
+    const { message, name, isMembership, isOwner, isModerator, thumbnail } = params;
+    try {
+      const messageText = message?.[0]?.text || '';
+      const messageEventData: MessageEventData = {
+        message: messageText,
+        username: name,
+        extra: {
+          istwitch: false,
+          isyoutube: true,
+          thumbnail: thumbnail?.url ?? 'user.png',
+          isMod: isModerator,
+          isSub: isMembership,
+          isOwner: isOwner,
+        } as ChatUserstateExtended
+      };
+      this.emit('message', messageEventData);
+
+      console.log('Message received from YouTube:', messageEventData);
+    } catch (error) {
+      console.error('Error handling YouTube message:', error);
+    }
+  }
+
+  public onMessage(listener: (data: MessageEventData) => void) {
+    this.on('message', listener);
+  }
+}
+
+export const youtubeService = new YouTubeService();

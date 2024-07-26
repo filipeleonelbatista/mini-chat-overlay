@@ -2,7 +2,7 @@ import { electronApp, is, optimizer } from '@electron-toolkit/utils'
 import { app, BrowserWindow, ipcMain, shell } from 'electron'
 import { join } from 'path'
 import icon from '../../resources/icon.png?asset'
-
+import { youtubeService } from '../services/youtubeService'
 import { twitchService } from '../services/twitchService'
 
 function createWindow(): void {
@@ -43,6 +43,13 @@ function createWindow(): void {
 }
 
 function startChatServices() {
+  youtubeService.onMessage((data) => {
+    const win = BrowserWindow.getAllWindows()[0]
+    if (win) {
+      win.webContents.send('chat-message', data)
+    }
+  });
+  
   twitchService.init()
 
   twitchService.onMessage((data) => {
@@ -51,6 +58,8 @@ function startChatServices() {
       win.webContents.send('chat-message', data)
     }
   })
+
+  
 }
 
 
