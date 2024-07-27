@@ -2,6 +2,7 @@ import { useEffect, useRef, useState } from 'react';
 import { IoMdChatbubbles } from "react-icons/io";
 import { FaPlay, FaTwitch, FaUser } from "react-icons/fa";
 import { cn } from './utils/cn';
+import { processMessage } from './utils/chatUtils';
 
 export interface ChatUserstateExtended {
   istwitch: boolean
@@ -10,6 +11,7 @@ export interface ChatUserstateExtended {
   isMod: boolean
   isSub: boolean
   isOwner: boolean
+  emotes?: any
 }
 
 export type MessageEventData = {
@@ -46,6 +48,7 @@ function App(): JSX.Element {
 
   useEffect(() => {
     const handleMessage = (_event: any, data: MessageEventData) => {
+      console.log("MENSAGEM RECEBIDA", data)
       setMessages(prevMessages => [...prevMessages, data]);
     }
 
@@ -85,7 +88,7 @@ function App(): JSX.Element {
           </div>
         ) : (
           <div
-            className="flex-1 flex-col overflow-y-scroll p-2 pb-4 justify-end"
+            className="flex-1 flex-col overflow-x-hidden overflow-y-scroll p-2 pb-4 justify-end"
             ref={containerRef}
           >
             {
@@ -124,9 +127,9 @@ function App(): JSX.Element {
                   </div>
                   {
                     item.extra?.isOwner ? (
-                      <div className={chatOwnerClasses}>{item.message}</div>
+                      <div className={chatOwnerClasses} dangerouslySetInnerHTML={{ __html: processMessage(item.message, item.extra) }}></div>
                     ) : (
-                      <div className={chatClasses}>{item.message}</div>
+                      <div className={chatClasses} dangerouslySetInnerHTML={{ __html: processMessage(item.message, item.extra) }}></div>
                     )
                   }
                   <div className="chat-footer flex flex-row items-center gap-2">
