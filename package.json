@@ -1,7 +1,7 @@
 {
   "displayName": "Mini Chat Overlay",
   "name": "mini-chat-overlay",
-  "version": "1.0.5",
+  "version": "1.0.6",
   "description": "Mini Chat Overlay for Twitch and Youtube chats using Electron + Vite + React and TypeScript",
   "main": "./out/main/index.js",
   "author": {
