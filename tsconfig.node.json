@@ -6,10 +6,12 @@
     "src/preload/**/*",
     "src/services/**/*",
     "src/actions/**/*",
-    "src/config/**/*"
+    "src/config/config.json"
   ],
   "compilerOptions": {
     "composite": true,
+    "resolveJsonModule": true,
+    "esModuleInterop": true,
     "types": [
       "electron-vite/node"
     ],

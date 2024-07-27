@@ -1,14 +1,17 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-  <meta name="description" content="Mini Chat Overlay for Twitch and Youtube chats using Electron + Vite + React and TypeScript.">
+  <meta name="description"
+    content="Mini Chat Overlay for Twitch and Youtube chats using Electron + Vite + React and TypeScript.">
 
   <meta name="og:title" content="Mini Chat Overlay">
-  <meta name="og:description" content="Mini Chat Overlay for Twitch and Youtube chats using Electron + Vite + React and TypeScript.">
+  <meta name="og:description"
+    content="Mini Chat Overlay for Twitch and Youtube chats using Electron + Vite + React and TypeScript.">
   <meta name="og:image" content="https://filipeleonelbatista.github.io/mini-chat-overlay/assets/og.png">
 
   <meta name="twitter:card" content="summary_large_image">
@@ -22,7 +25,7 @@
   <meta name="twitter:image:height" content="630">
 
   <link rel="preconnect" href="https://fonts.gstatic.com">
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;800&display=swap" rel="stylesheet"> 
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;800&display=swap" rel="stylesheet">
 
   <link rel="shortcut icon" href="assets/favicon.png" type="image/png">
 
@@ -30,28 +33,56 @@
 
   <title>Mini Chat Overlay</title>
 </head>
+
 <body>
   <div id="wrapper">
     <h1>Mini Chat Overlay</h1>
     <p>Mini Chat Overlay for Twitch and Youtube chats using Electron + Vite + React and TypeScript.</p>
     <footer>
-      <a
-        target="_blank"
-        class="download"
-        href="https://github.com/filipeleonelbatista/mini-chat-overlay/releases/latest"
-      >
+      <div>
+        <a target="_blank" class="github" href="https://github.com/filipeleonelbatista/mini-chat-overlay">
+          <img src="assets/github.svg" />
+          <span>Github</span>
+        </a>
+
+        <a target="_blank" id="pix-link" class="github" href="#">
+          <img src="assets/pix-dark.svg" />
+          <span>Pix me a coffee</span>
+        </a>
+      </div>
+
+      <a target="_blank" class="download"
+        href="https://github.com/filipeleonelbatista/mini-chat-overlay/releases/latest">
         <img src="assets/download.svg" />
         <span>Download</span>
       </a>
-      <a
-        target="_blank"
-        class="github"
-        href="https://github.com/filipeleonelbatista/mini-chat-overlay"
-      >
-        <img src="assets/github.svg" />
-        <span>Github</span>
-      </a>
+
+      <p>
+        Develop with 🩷 by <a href="https://filipeleonelbatista.dev.br" target="_blank">Filipe Batista</a>
+      </p>
+
+      <p>
+        Check out this other app <a href="https://maykbrito.github.io/mini-video-me/" target="_blank">Mini Video Me</a>
+      </p>
     </footer>
   </div>
+
+  <script>
+    document.getElementById('pix-link').addEventListener('click', function(event) {
+      event.preventDefault();
+
+      const textToCopy = '00020126580014BR.GOV.BCB.PIX0136f1bfe5be-67eb-42ad-8928-f71e02e1c99b5204000053039865802BR5924Filipe de Leonel Batista6009SAO PAULO62140510KYWrrTDFwc63041370';
+
+      const tempInput = document.createElement('input');
+      tempInput.value = textToCopy;
+      document.body.appendChild(tempInput);
+      tempInput.select();
+      document.execCommand('copy');
+      document.body.removeChild(tempInput);
+
+      alert('Chave Pix copiada!');
+    });
+  </script>
 </body>
+
 </html>

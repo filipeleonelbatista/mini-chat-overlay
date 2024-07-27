@@ -1,6 +1,6 @@
 import EventEmitter from 'events';
 import { TubeChat } from 'tubechat';
-import { config } from '../config/config';
+import config from '../config/config.json'
 
 export interface ChatUserstateExtended {
   istwitch: boolean;

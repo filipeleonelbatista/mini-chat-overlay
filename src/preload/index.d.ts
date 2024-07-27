@@ -1,8 +1,26 @@
 import { ElectronAPI } from '@electron-toolkit/preload'
 
+
+
 declare global {
+  interface ApiObject {
+    showYoutube: boolean;
+    showTwitch: boolean;
+    twitchChannelName: string;
+    youtubeChannelName: string;
+    showAvatar: boolean;
+    showBadges: boolean;
+    backgroundBubbleOwner: string;
+    backgroundBubbleChat: string;
+    appBackgroundColor: string;
+  }
+  
+  interface ApiObject {
+    config: ConfigObject;
+  }
+  
   interface Window {
     electron: ElectronAPI
-    api: unknown
+    api: ApiObject
   }
 }
