@@ -1,9 +1,21 @@
 {
+  "displayName": "Mini Chat Overlay",
   "name": "mini-chat-overlay",
-  "version": "1.0.0",
+  "version": "1.0.5",
   "description": "Mini Chat Overlay for Twitch and Youtube chats using Electron + Vite + React and TypeScript",
   "main": "./out/main/index.js",
-  "author": "filipeleonelbatista.dev.br",
+  "author": {
+    "name": "Filipe Leonel Batista",
+    "email": "filipe.x2016@gmail.com"
+  },
+  "license": "MIT",
+  "keywords": [
+    "chat",
+    "overlay",
+    "mini chat overlay",
+    "twitch",
+    "youtube"
+  ],
   "homepage": "https://filipeleonelbatista.dev.br",
   "scripts": {
     "format": "prettier --write .",

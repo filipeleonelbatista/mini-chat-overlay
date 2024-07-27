@@ -89,16 +89,16 @@ function App(): JSX.Element {
               <div className="relative chat-image avatar">
                 <div className="w-10 rounded-full">
                   {
-                    item.extra.thumbnail !== "user.png" && (
+                    item.extra?.thumbnail !== "user.png" && (
                       <img
                         alt={item.username}
-                        src={item.extra.thumbnail}
+                        src={item.extra?.thumbnail}
                       />
                     )
                   }
                   {
-                    item.extra.thumbnail === "user.png" && (
-                      <div data-isyoutube={item.extra.isyoutube} data-istwitch={item.extra.istwitch} className="w-10 h-10 flex items-center justify-center rounded-full bg-purple-400 data-[isyoutube=true]:bg-red-500 data-[istwitch=true]:bg-purple-400">
+                    item.extra?.thumbnail === "user.png" && (
+                      <div data-isyoutube={item.extra?.isyoutube} data-istwitch={item.extra?.istwitch} className="w-10 h-10 flex items-center justify-center rounded-full bg-purple-400 data-[isyoutube=true]:bg-red-500 data-[istwitch=true]:bg-purple-400">
                         <FaUser className='w-4 h-4 text-white' />
                       </div>
                     )
