@@ -4,6 +4,7 @@
   "version": "1.1.6",
   "description": "Mini Chat Overlay for Twitch and Youtube chats using Electron + Vite + React and TypeScript",
   "main": "./out/main/index.js",
+  "type": "module",
   "author": {
     "name": "Filipe Leonel Batista",
     "email": "filipe.x2016@gmail.com"
@@ -25,12 +26,15 @@
     "typecheck": "npm run typecheck:node && npm run typecheck:web",
     "start": "electron-vite preview",
     "dev": "electron-vite dev",
-    "build": "npm run typecheck && electron-vite build",
+    "build-og": "npm run typecheck && electron-vite build",
     "postinstall": "electron-builder install-app-deps",
     "build:unpack": "npm run build && electron-builder --dir",
     "build:win": "npm run build && electron-builder --win",
     "build:mac": "electron-vite build && electron-builder --mac",
-    "build:linux": "electron-vite build && electron-builder --linux"
+    "build:linux": "electron-vite build && electron-builder --linux",
+    "compile:packageJSON": "node ./bin/modules/postbuild/index.js",
+    "build": "./node_modules/.bin/electron-builder",
+    "make:release": "node ./bin/modules/release/index.js"
   },
   "dependencies": {
     "@electron-toolkit/preload": "^3.0.1",
@@ -60,10 +64,12 @@
     "electron-vite": "^2.3.0",
     "eslint": "^8.57.0",
     "eslint-plugin-react": "^7.34.3",
+    "open": "^10.1.0",
     "postcss": "^8.4.40",
     "prettier": "^3.3.2",
     "react": "^18.3.1",
     "react-dom": "^18.3.1",
+    "semver": "^7.6.3",
     "tailwindcss": "^3.4.7",
     "typescript": "^5.5.2",
     "vite": "^5.3.1",
