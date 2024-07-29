@@ -4,7 +4,6 @@
   "version": "1.1.20",
   "description": "Mini Chat Overlay for Twitch and Youtube chats using Electron + Vite + React and TypeScript",
   "main": "./out/main/index.js",
-  "type": "module",
   "author": {
     "name": "Filipe Leonel Batista",
     "email": "filipe.x2016@gmail.com"
