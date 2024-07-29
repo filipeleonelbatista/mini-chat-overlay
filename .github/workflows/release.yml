@@ -32,10 +32,6 @@ jobs:
         if: startsWith(matrix.os, 'ubuntu-latest')
         run: sudo apt-get install libarchive-tools rpm
 
-      - name: Install snapcraft on Linux
-        if: startsWith(matrix.os, 'ubuntu-latest')
-        run: sudo snap install snapcraft --classic
-
       - name: Release Electron app
         uses: coparse-inc/action-electron-builder@v1.0.0
         with:
