@@ -35,8 +35,8 @@
     "install:deps": "electron-builder install-app-deps",
     "prebuild": "npm run compile:app && npm run compile:packageJSON",
     "compile:app": "npm run typecheck && electron-vite build",
-    "compile:packageJSON": "node ./bin/modules/postbuild/index.js",
-    "make:release": "node ./bin/modules/release/index.js"
+    "compile:packageJSON": "node ./bin/modules/postbuild/index.mjs",
+    "make:release": "node ./bin/modules/release/index.mjs"
   },
   "dependencies": {
     "@electron-toolkit/preload": "^3.0.1",
