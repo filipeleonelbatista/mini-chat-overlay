@@ -26,7 +26,7 @@
     "typecheck": "npm run typecheck:node && npm run typecheck:web",
     "start": "electron-vite preview",
     "dev": "electron-vite dev",
-    "build-og": "npm run typecheck && electron-vite build",
+    "build": "npm run typecheck && electron-vite build",
     "postinstall-og": "electron-builder install-app-deps",
     "build:unpack": "npm run build && electron-builder --dir",
     "build:win": "npm run build && electron-builder --win",
@@ -37,7 +37,6 @@
     "prebuild": "npm run compile:app && npm run compile:packageJSON",
     "compile:app": "npm run typecheck && electron-vite build",
     "compile:packageJSON": "node ./bin/modules/postbuild/index.js",
-    "build": "./node_modules/.bin/electron-builder",
     "make:release": "node ./bin/modules/release/index.js"
   },
   "dependencies": {
