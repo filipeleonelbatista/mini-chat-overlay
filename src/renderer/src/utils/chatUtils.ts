@@ -30,34 +30,37 @@ export function processMessage(
   message: string,
   extra?: any
 ): string {
-  let sanitizedMessage = sanitizeMessage(message)
-  
-  const urlRegex = /(https?:\/\/[^\s]+)/g
+  console.log("Cheguei aqui", { message, extra });
+
+  let sanitizedMessage = sanitizeMessage(message);
+
+  const urlRegex = /(https?:\/\/[^\s]+)/g;
   sanitizedMessage = sanitizedMessage.replace(urlRegex, (url) => {
-    return `<a href="${url}"  style="color: #3B82F6; font-style: italic;" target="_blank">${url.substring(0,25) + "..."} </a>`
-  })
+    return `<a href="${url}" style="color: #3B82F6; font-style: italic;" target="_blank">${url.substring(0, 25)}${url.length > 25 ? "..." : ""}</a>`;
+  });
 
-  const marcacaoRegex = /@\b(\w+)\b/g
-  sanitizedMessage = sanitizedMessage.replace(marcacaoRegex, (_match, text) => {
-    return `<span style="background-color: #9CA3AF; color: black; font-style: italic; padding: 1px 4px; border-radius: 0.375rem;">@${text}</span>`
-  })
-
-  const messageEmotes = extra?.emotes
-  if (!messageEmotes) return sanitizedMessage
-
-  const emotes = Object.keys(messageEmotes)
-  for (let emote of emotes) {
-    let reversedMessageEmotes = messageEmotes[emote].slice().reverse()
-    for (let i = 0; i < reversedMessageEmotes.length; i++) {
-      let img = imgEmote(emoteURL(emote))
-      let [start, end] = reversedMessageEmotes[i].split('-')
-      sanitizedMessage = replaceBetween({
-        start: Number(start),
-        end: Number(end) + 1,
-        img,
-        message: sanitizedMessage
-      })
+  const messageEmotes = extra?.emotes;
+  if (messageEmotes) {
+    const emotes = Object.keys(messageEmotes);
+    for (const emote of emotes) {
+      const emotePositions = messageEmotes[emote];
+      for (const position of emotePositions) {
+        const [start, end] = position.split('-').map(Number);
+        const img = imgEmote(emoteURL(emote));
+        sanitizedMessage = replaceBetween({
+          start,
+          end: end + 1,
+          img,
+          message: sanitizedMessage
+        });
+      }
     }
   }
-  return sanitizedMessage
+
+  const marcacaoRegex = /@\b(\w+)\b/g;
+  sanitizedMessage = sanitizedMessage.replace(marcacaoRegex, (_match, text) => {
+    return `<span style="background-color: #9CA3AF; color: black; font-style: italic; padding: 1px 4px; border-radius: 0.375rem;">@${text}</span>`;
+  });
+
+  return sanitizedMessage;
 }
