@@ -5,6 +5,7 @@ import { cn } from './utils/cn';
 import { processMessage } from './utils/chatUtils';
 
 export interface ChatUserstateExtended {
+  id?: string
   istwitch: boolean
   isyoutube: boolean
   thumbnail: string
@@ -49,7 +50,12 @@ function App(): JSX.Element {
   useEffect(() => {
     const handleMessage = (_event: any, data: MessageEventData) => {
       console.log("MENSAGEM RECEBIDA", data)
-      setMessages(prevMessages => [...prevMessages, data]);
+      setMessages(prevMessages => {
+        if (data.extra?.id && prevMessages.some(message => message.extra?.id === data.extra?.id)) {
+          return prevMessages;
+        }
+        return [...prevMessages, data];
+      });
     }
 
     window.electron.ipcRenderer.on('chat-message', handleMessage);

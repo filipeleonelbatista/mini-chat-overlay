@@ -18,18 +18,26 @@ export type MessageEventData = {
 }
 
 class TwitchService extends EventEmitter {
-  private client: tmi.Client
+  private static instance: TwitchService;
+  private client: tmi.Client;
 
-  constructor() {
-    super()
+  private constructor() {
+    super();
     console.log('Connecting to Twitch channel:', config.twitchChannelName);
     this.client = new tmi.Client({
       channels: [config.twitchChannelName]
-    })
+    });
+  }
+
+  public static getInstance(): TwitchService {
+    if (!TwitchService.instance) {
+      TwitchService.instance = new TwitchService();
+    }
+    return TwitchService.instance;
   }
 
   public init() {
-    this.client.connect()
+    this.client.connect();
 
     this.client.on('message', (_channel, extra, message) => {
       try {
@@ -45,18 +53,22 @@ class TwitchService extends EventEmitter {
             isSub: extra.subscriber,
             isOwner: extra.username === config.twitchChannelName
           } as ChatUserstateExtended
-        }
+        };
 
-        this.emit('message', messageEventData)
+        this.emit('message', messageEventData);
       } catch (error) {
-        console.error('Error handling Twitch message:', error)
+        console.error('Error handling Twitch message:', error);
       }
-    })
+    });
   }
 
   public onMessage(listener: (data: MessageEventData) => void) {
-    this.on('message', listener)
+    this.on('message', listener);
+  }
+
+  public disconnect() {
+    this.client.disconnect();
   }
 }
 
-export const twitchService = new TwitchService()
+export const twitchService = TwitchService.getInstance();

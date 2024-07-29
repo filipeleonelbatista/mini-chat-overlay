@@ -1,6 +1,6 @@
 import EventEmitter from 'events';
 import { TubeChat } from 'tubechat';
-import config from '../config/config.json'
+import config from '../config/config.json';
 
 export interface ChatUserstateExtended {
   istwitch: boolean;
@@ -44,14 +44,22 @@ interface TubeChatMessage {
 }
 
 class YouTubeService extends EventEmitter {
+  private static instance: YouTubeService;
   private tubeChat: TubeChat;
 
-  constructor() {
+  private constructor() {
     super();
     this.tubeChat = new TubeChat();
     this.tubeChat.connect(config.youtubeChannelName);
     console.log('Connecting to YouTube channel:', config.youtubeChannelName);
     this.tubeChat.on('message', (data: TubeChatMessage) => this.handleMessage(data));
+  }
+
+  public static getInstance(): YouTubeService {
+    if (!YouTubeService.instance) {
+      YouTubeService.instance = new YouTubeService();
+    }
+    return YouTubeService.instance;
   }
 
   private handleMessage(params: TubeChatMessage) {
@@ -79,6 +87,10 @@ class YouTubeService extends EventEmitter {
   public onMessage(listener: (data: MessageEventData) => void) {
     this.on('message', listener);
   }
+
+  public disconnect() {
+    this.tubeChat.disconnect(config.youtubeChannelName);
+  }
 }
 
-export const youtubeService = new YouTubeService();
+export const youtubeService = YouTubeService.getInstance();
