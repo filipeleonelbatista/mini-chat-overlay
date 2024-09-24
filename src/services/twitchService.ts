@@ -5,6 +5,7 @@ import config from '../config/config.json'
 export interface ChatUserstateExtended {
   istwitch: boolean
   isyoutube: boolean
+  isdiscord: boolean;
   thumbnail: string
   isMod: boolean
   isSub: boolean
@@ -48,6 +49,7 @@ class TwitchService extends EventEmitter {
             ...extra,
             istwitch: true,
             isyoutube: false,
+            isdiscord: false,
             thumbnail: 'user.png',
             isMod: extra.mod,
             isSub: extra.subscriber,

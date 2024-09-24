@@ -5,6 +5,7 @@ import config from '../config/config.json';
 export interface ChatUserstateExtended {
   istwitch: boolean;
   isyoutube: boolean;
+  isdiscord: boolean;
   thumbnail: string;
   isMod: boolean;
   isSub: boolean;
@@ -72,6 +73,7 @@ class YouTubeService extends EventEmitter {
         extra: {
           istwitch: false,
           isyoutube: true,
+          isdiscord: false,
           thumbnail: thumbnail?.url ?? 'user.png',
           isMod: isModerator,
           isSub: isMembership,

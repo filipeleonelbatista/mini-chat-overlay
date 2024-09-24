@@ -2,7 +2,7 @@
   "displayName": "Mini Chat Overlay",
   "name": "mini-chat-overlay",
   "version": "1.1.212",
-  "description": "Mini Chat Overlay for Twitch and Youtube chats using Electron + Vite + React and TypeScript",
+  "description": "Mini Chat Overlay for Twitch and Youtube chats and and Discord Channel using Electron + Vite + React and TypeScript",
   "main": "./out/main/index.js",
   "author": {
     "name": "Filipe Leonel Batista",
@@ -43,6 +43,7 @@
     "@electron-toolkit/preload": "^3.0.1",
     "@electron-toolkit/utils": "^3.0.0",
     "clsx": "^2.1.1",
+    "discord.js": "^14.16.2",
     "electron-updater": "^6.1.7",
     "react-icons": "^5.2.1",
     "socket.io": "^4.7.5",

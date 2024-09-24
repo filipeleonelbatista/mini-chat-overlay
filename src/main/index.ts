@@ -11,6 +11,7 @@ import icon from '../../resources/icon.png?asset'
 import pixDarkIcon from '../../resources/pix-dark.png?asset'
 import pixLightIcon from '../../resources/pix-light.png?asset'
 import iconTray from '../../resources/tray.png?asset'
+import { discordService } from '../services/discordService'
 import { twitchService } from '../services/twitchService'
 import { youtubeService } from '../services/youtubeService'
 import config from "../config/config.json"
@@ -58,7 +59,16 @@ function createWindow(): void {
   }
 }
 
-function startChatServices() {
+function startChatServices() {  
+  if(config.showDiscord){
+    discordService.init()  
+    discordService.onMessage((data) => {
+      const win = BrowserWindow.getAllWindows()[0]
+      if (win) {
+        win.webContents.send('chat-message', data)
+      }
+    })
+  }
   if(config.showTwitch){
     twitchService.init()  
     twitchService.onMessage((data) => {
