@@ -17,6 +17,7 @@ declare global {
   
   interface ApiObject {
     config: ConfigObject;
+    updateConfig: (newConfig: any) => void;
   }
   
   interface Window {

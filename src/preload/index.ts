@@ -1,10 +1,28 @@
 import { contextBridge, ipcRenderer } from 'electron'
 import { electronAPI } from '@electron-toolkit/preload'
 import config from '../config/config.json'
+import fs from 'fs';
+import path from 'path';
+
+let configPath;
+
+// Obtenha o caminho da raiz do projeto a partir do processo principal
+ipcRenderer.invoke('get-app-path').then((appPath) => {
+  configPath = path.join(appPath, 'src', 'config', 'config.json');
+});
 
 // Custom APIs for renderer
 const api = {
-  config
+  config,
+  updateConfig: (newConfig) => {
+    try {      
+      fs.writeFileSync(configPath, JSON.stringify(newConfig, null, 2), 'utf-8');
+      alert("Salvo com sucesso!")
+    } catch (error) {
+      console.log('error', error)
+      alert("Erro ao salvar!")
+    }
+  },
 }
 
 // Use `contextBridge` APIs to expose Electron APIs to

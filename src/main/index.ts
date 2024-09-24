@@ -109,6 +109,33 @@ function createTray() {
   tray = new Tray(iconTray)
   const contextMenu = Menu.buildFromTemplate([
     {
+      label: 'Configurações do App',
+      icon: nativeTheme.shouldUseDarkColors ? configDarkIcon : configLightIcon,
+      click: () => {
+        let configWindow = new BrowserWindow({
+          width: 400,
+          height: 600,
+          webPreferences: {
+            preload: join(__dirname, '../preload/index.js'), 
+            sandbox: false,
+          },
+        });
+
+        if (is.dev && process.env['ELECTRON_RENDERER_URL']) {
+          configWindow.loadURL(`${process.env['ELECTRON_RENDERER_URL']}/configuracoes`);
+        } else {
+          configWindow.loadURL(`file://${join(__dirname, '../renderer/index.html')}/configuracoes`);
+        }
+
+        configWindow.on('closed', () => {
+          configWindow = null;
+        });
+      }
+    },
+    {
+      type: 'separator' // Aqui está o separador
+    },
+    {
       label: 'Gostou do App? Pague-me um café!',
       icon: nativeTheme.shouldUseDarkColors ? pixDarkIcon : pixLightIcon,
       click: () => {
@@ -116,12 +143,15 @@ function createTray() {
       }
     },
     {
-      label: 'Preferências',
+      label: 'Alterar Config.json',
       icon: nativeTheme.shouldUseDarkColors ? configDarkIcon : configLightIcon,
       click: () => {
         const configPath = path.join(app.getAppPath(), 'src', 'config', 'config.json');
         shell.openPath(configPath).catch(err => console.error(err));
       }
+    },
+    {
+      type: 'separator' // Aqui está o separador
     },
     {
       label: 'Sobre o App',
@@ -146,6 +176,9 @@ function createTray() {
           }
         }).catch(err => console.error(err))
       }
+    },
+    {
+      type: 'separator' // Aqui está o separador
     },
     {
       label: 'Fechar',
@@ -198,6 +231,11 @@ app.whenReady().then(() => {
 
   // IPC test
   ipcMain.on('ping', () => console.log('pong'))
+
+  // Passar o caminho da raiz para o `preload.js`
+  ipcMain.handle('get-app-path', () => {
+    return app.getAppPath();
+  });
 
   createWindow()
 

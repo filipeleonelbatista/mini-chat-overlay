@@ -1,7 +1,7 @@
 {
-  "showYoutube": true,
-  "showTwitch": true,
-  "showDiscord": false,
+  "showYoutube": false,
+  "showTwitch": false,
+  "showDiscord": true,
   "twitchChannelName": "filipeleonelbatista",
   "youtubeChannelName": "filipeleonelbatista",
   "showAvatar": true,
@@ -9,7 +9,7 @@
   "backgroundBubbleOwner": "bg-cyan-600",
   "backgroundBubbleChat": "bg-gray-200",
   "appBackgroundColor": "bg-green-200",
-  "discordToken": "<BOT_TOKEN>",
-  "discordChannelId": "<CHANNEL_ID>",
-  "discordOwnerId": "<DISCORD_OWNER_ID>"
+  "discordToken": "",
+  "discordChannelId": "1288130682715111456",
+  "discordOwnerId": "280715729404166144"
 }
