@@ -115,6 +115,8 @@ function createTray() {
         let configWindow = new BrowserWindow({
           width: 400,
           height: 600,
+          autoHideMenuBar: true,
+          ...(process.platform === 'linux' ? { icon } : {}),
           webPreferences: {
             preload: join(__dirname, '../preload/index.js'), 
             sandbox: false,
