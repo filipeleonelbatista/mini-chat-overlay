@@ -1,7 +1,7 @@
 {
   "showYoutube": false,
-  "showTwitch": false,
-  "showDiscord": true,
+  "showTwitch": true,
+  "showDiscord": false,
   "twitchChannelName": "filipeleonelbatista",
   "youtubeChannelName": "filipeleonelbatista",
   "showAvatar": true,
@@ -10,6 +10,6 @@
   "backgroundBubbleChat": "bg-gray-200",
   "appBackgroundColor": "bg-green-200",
   "discordToken": "",
-  "discordChannelId": "1288130682715111456",
-  "discordOwnerId": "280715729404166144"
+  "discordChannelId": "",
+  "discordOwnerId": ""
 }
