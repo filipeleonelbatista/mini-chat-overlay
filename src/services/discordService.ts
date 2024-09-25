@@ -21,6 +21,7 @@ export type MessageEventData = {
 class DiscordService extends EventEmitter {
   private static instance: DiscordService;
   private client: Client;
+  // @ts-ignore (define in dts)
   private channel: TextChannel | null = null;
 
   private constructor() {
@@ -47,6 +48,7 @@ class DiscordService extends EventEmitter {
             isyoutube: false,
             isdiscord: true,
             thumbnail: message.author.displayAvatarURL(),
+            // @ts-ignore (define in dts)
             isMod: message.member?.permissions.has('MANAGE_MESSAGES') || false,
             isSub: false,
             isOwner: message.author.id === config.discordOwnerId,

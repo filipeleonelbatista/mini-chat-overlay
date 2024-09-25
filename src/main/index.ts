@@ -128,6 +128,7 @@ function createTray() {
         }
 
         configWindow.on('closed', () => {
+          // @ts-ignore (define in dts)
           configWindow = null;
         });
       }
