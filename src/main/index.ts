@@ -60,7 +60,7 @@ function createWindow(): void {
 }
 
 function startChatServices() {  
-  if(config.showDiscord){
+  if(config.discordToken.length > 0 && config.showDiscord){
     discordService.init()  
     discordService.onMessage((data) => {
       const win = BrowserWindow.getAllWindows()[0]
